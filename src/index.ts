@@ -1,10 +1,15 @@
-import express, { Request, Response } from 'express';
+import express, {Application, Request, Response} from "express";
 import {pool, db} from '../src/db/configDB'
 import * as dotenv from 'dotenv';
+import bodyParser from "body-parser";
+import router from './routes/route'
 
+router
 dotenv.config();
 
-const app = express();
+const app: Application = express();
+app.use(bodyParser.json());
+
 const port = 3000;
 
 app.get('/', async (req: Request, res: Response) => {
@@ -25,6 +30,10 @@ app.listen(port, async () => {
   }
   console.log(`Server running on port ${port}`);
 })
+
+app.use('/', router);
+
+
 
 // db.runMigrations().then(() => {
 //   app.listen(port, () => {
