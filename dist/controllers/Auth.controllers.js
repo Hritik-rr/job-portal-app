@@ -41,7 +41,7 @@ const authentication_middleware_1 = require("../middlewares/authentication.middl
 dotenv.config();
 class AuthController {
     static generateToken(user) {
-        return jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "1h" });
+        return jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "12h" });
     }
     // Recruiter Login
     static loginRecruiter(req, res) {
@@ -58,8 +58,11 @@ class AuthController {
                     return res.status(401).json({ message: "Invalid email or password" });
                 }
                 const token = AuthController.generateToken({ id: recruiter.id, role: 'recruiter' });
+                const recID = result.rows[0].id;
                 return res.status(200).json({
-                    message: "Login Successful", token
+                    message: "Login Successful",
+                    token,
+                    recID
                 });
             }
             catch (error) {

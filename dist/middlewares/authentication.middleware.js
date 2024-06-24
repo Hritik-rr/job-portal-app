@@ -49,6 +49,9 @@ const authentication = (req, res, next) => {
             id: decode.id,
             role: decode.role,
         };
+        // NEW SHIT!!!
+        // const decode = jwt.verify(token, SECRET_KEY) as DecodedToken["currentUser"];
+        // req.currentUser = decode;
         next();
     }
     catch (error) {

@@ -9,7 +9,7 @@ dotenv.config();
 
 export class AuthController {
   private static generateToken(user: { id: string; role: string }) {
-    return jwt.sign(user, process.env.JWT_SECRET!, { expiresIn: "1h" });
+    return jwt.sign(user, process.env.JWT_SECRET!, { expiresIn: "12h" });
   }
 
   // Recruiter Login
@@ -31,9 +31,13 @@ export class AuthController {
       }
 
       const token = AuthController.generateToken({ id: recruiter.id, role: 'recruiter' });
+      const recID = result.rows[0].id 
+
 
       return res.status(200).json({ 
-        message: "Login Successful", token 
+        message: "Login Successful", 
+        token, 
+        recID
       });
     } catch (error) {
       console.error('Error during login', error);

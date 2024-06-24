@@ -4,10 +4,13 @@ import * as dotenv from "dotenv";
 dotenv.config();
 export const SECRET_KEY: Secret = process.env.SECRET_KEY || "secret10";
 
-interface DecodedToken {
+export interface DecodedToken extends Request{
   id: string;
   role: string;
-  // Add other properties from your JWT payload if needed
+
+  // NEW SHIT!!!
+  // currentUser?: { id: any; role: any };
+
 }
 
 export const authentication = (req: Request, res: Response, next: NextFunction) => {
@@ -32,6 +35,12 @@ export const authentication = (req: Request, res: Response, next: NextFunction) 
       id: decode.id,
       role: decode.role,
     };
+
+    // NEW SHIT!!!
+    // const decode = jwt.verify(token, SECRET_KEY) as DecodedToken["currentUser"];
+    // req.currentUser = decode;
+    
+    
     next();
   } catch (error) {
     console.error('JWT verification error:', error);
