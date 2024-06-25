@@ -29,8 +29,8 @@ export class RecruiterController {
         const { currentUser } = req as CustomRequest;
         const recruiterId = currentUser?.id;
     
-        console.log("Received jobId:", jobId);
-        console.log("Current user:", currentUser);
+        // console.log("Received jobId:", jobId);
+        // console.log("Current user:", currentUser);
     
         try {
           if (!recruiterId) {

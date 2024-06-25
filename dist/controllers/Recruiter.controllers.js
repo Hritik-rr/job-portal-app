@@ -57,8 +57,8 @@ class RecruiterController {
             const { jobId } = req.params;
             const { currentUser } = req;
             const recruiterId = currentUser === null || currentUser === void 0 ? void 0 : currentUser.id;
-            console.log("Received jobId:", jobId);
-            console.log("Current user:", currentUser);
+            // console.log("Received jobId:", jobId);
+            // console.log("Current user:", currentUser);
             try {
                 if (!recruiterId) {
                     return res.status(401).json({ message: "Unauthorized" });
