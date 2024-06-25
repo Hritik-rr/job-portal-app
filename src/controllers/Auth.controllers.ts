@@ -80,7 +80,7 @@ export class AuthController {
   // Recruiter Registration
   public static async registerRecruiter(req: Request, res: Response) {
     const { recName, email, pwd, recDept, recStatus } = req.body;
-    console.log(recStatus)
+    // console.log(recStatus)
 
     try {
       const hashedPassword = await bcrypt.hash(pwd, 10);

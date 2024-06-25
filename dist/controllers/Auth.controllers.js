@@ -103,7 +103,7 @@ class AuthController {
     static registerRecruiter(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { recName, email, pwd, recDept, recStatus } = req.body;
-            console.log(recStatus);
+            // console.log(recStatus)
             try {
                 const hashedPassword = yield bcrypt.hash(pwd, 10);
                 const result = yield configDB_1.pool.query('INSERT INTO recruiter (recName, email, pwd, recDept, recStatus) VALUES ($1, $2, $3, $4, $5) RETURNING *', [recName, email, hashedPassword, recDept, recStatus === undefined ? "Active" : recStatus]);

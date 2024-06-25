@@ -49,9 +49,6 @@ class CandidateController {
             if (!candidateId) {
                 return res.status(401).json({ message: "Candidate ID required." });
             }
-            // query 1: checks if the jobID exits
-            // query 2: checks if the candidate has already applied for the job
-            // query 3: insert the new job application entry into the jobApplications table
             try {
                 const query = `
                 WITH job_check AS (
