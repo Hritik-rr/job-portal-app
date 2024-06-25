@@ -1,23 +1,26 @@
 import { NextFunction, Request, Response } from "express";
 import { pool } from '../db/configDB';
+import { CustomRequest } from "./authentication.middleware";
 
-interface CustomRequest extends Request {
-  currentUser?: {
-    id: string;
-    role: string;
-  };
-}
+// interface CustomRequest extends Request {
+//   currentUser?: {
+//     id: string;
+//     role: string;
+//   };
+// }
 
 export const authorization = (roles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const { currentUser } = req as CustomRequest;
 
+    // console.log("auth test " + JSON.stringify(currentUser))
+
     if (!currentUser?.id || !currentUser?.role) {
       return res.status(403).json({ message: "Forbidden" });
     }
 
-    const userId = currentUser.id;
-    const userRole = currentUser.role;
+    const userId = currentUser?.id;
+    const userRole = currentUser?.role;
 
     try {
       let result;

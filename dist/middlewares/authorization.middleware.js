@@ -11,14 +11,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authorization = void 0;
 const configDB_1 = require("../db/configDB");
+// interface CustomRequest extends Request {
+//   currentUser?: {
+//     id: string;
+//     role: string;
+//   };
+// }
 const authorization = (roles) => {
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const { currentUser } = req;
+        // console.log("auth test " + JSON.stringify(currentUser))
         if (!(currentUser === null || currentUser === void 0 ? void 0 : currentUser.id) || !(currentUser === null || currentUser === void 0 ? void 0 : currentUser.role)) {
             return res.status(403).json({ message: "Forbidden" });
         }
-        const userId = currentUser.id;
-        const userRole = currentUser.role;
+        const userId = currentUser === null || currentUser === void 0 ? void 0 : currentUser.id;
+        const userRole = currentUser === null || currentUser === void 0 ? void 0 : currentUser.role;
         try {
             let result;
             // Query the respective table based on the user role

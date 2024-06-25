@@ -52,5 +52,40 @@ class RecruiterController {
             }
         });
     }
+    static jobApplicationLogs(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { jobId } = req.params;
+            const { currentUser } = req;
+            const recruiterId = currentUser === null || currentUser === void 0 ? void 0 : currentUser.id;
+            console.log("Received jobId:", jobId);
+            console.log("Current user:", currentUser);
+            try {
+                if (!recruiterId) {
+                    return res.status(401).json({ message: "Unauthorized" });
+                }
+                // Verify that the jobId belongs to the recruiter
+                const jobResult = yield configDB_1.pool.query(`SELECT id FROM jobListings WHERE id = $1 AND recId = $2`, [jobId, recruiterId]);
+                console.log("Job result:", jobResult.rows);
+                if (jobResult.rows.length === 0) {
+                    return res.status(404).json({ message: "Job not found or you are not authorized to view this job's applications." });
+                }
+                // Fetch the candidates who applied for this job
+                const result = yield configDB_1.pool.query(`SELECT ja.candidateId, c.userName, c.userDept, c.age, c.email, jl.dept, jl.jobDesc, jl.salaryRange 
+             FROM jobApplications ja 
+             INNER JOIN jobListings jl ON jl.id = ja.jobId 
+             INNER JOIN candidate c ON c.id = ja.candidateId 
+             WHERE ja.jobId = $1 AND jl.recId = $2`, [jobId, recruiterId]);
+                console.log("Application result:", result.rows);
+                if (result.rows.length === 0) {
+                    return res.status(404).json({ message: "No applications found for this job." });
+                }
+                res.status(200).json({ applications: result.rows });
+            }
+            catch (error) {
+                console.error("Error fetching job application logs:", error);
+                res.status(500).json({ message: "Internal Server Error" });
+            }
+        });
+    }
 }
 exports.RecruiterController = RecruiterController;

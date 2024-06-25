@@ -32,11 +32,12 @@ const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 exports.SECRET_KEY = process.env.SECRET_KEY || "secret10";
 const authentication = (req, res, next) => {
+    var _a;
     const header = req.headers.authorization;
     if (!header) {
         return res.status(401).json({ message: "Unauthorized" });
     }
-    const token = header.split(" ")[1];
+    const token = (_a = req.header('Authorization')) === null || _a === void 0 ? void 0 : _a.replace('Bearer ', '');
     if (!token) {
         return res.status(401).json({ message: "Unauthorized" });
     }
@@ -49,9 +50,6 @@ const authentication = (req, res, next) => {
             id: decode.id,
             role: decode.role,
         };
-        // NEW SHIT!!!
-        // const decode = jwt.verify(token, SECRET_KEY) as DecodedToken["currentUser"];
-        // req.currentUser = decode;
         next();
     }
     catch (error) {

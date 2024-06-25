@@ -64,10 +64,12 @@ export class AuthController {
       }
 
       const token = AuthController.generateToken({ id: candidate.id, role: 'candidate' });
+      const candidateId = result.rows[0].id 
 
       return res.status(200).json({ 
         message: "Login Successful",
-        token
+        token,
+        candidateId
        });
     } catch (error) {
       console.error('Error during login', error);
@@ -92,7 +94,10 @@ export class AuthController {
 
       const token = jwt.sign({ id: newRecruiter.id, role: 'recruiter' }, SECRET_KEY, { expiresIn: '12h' });
 
-      return res.status(201).json({ token });
+      return res.status(201).json({ 
+        message: "New Recruiter account created.", 
+        token 
+      });
     } catch (error) {
       console.error('Error during registration', error);
       return res.status(500).json({ message: "Internal Server Error" });
