@@ -41,7 +41,7 @@ const authentication_middleware_1 = require("../middlewares/authentication.middl
 dotenv.config();
 class AuthController {
     static generateToken(user) {
-        return jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "12h" });
+        return jwt.sign(user, authentication_middleware_1.SECRET_KEY, { expiresIn: "12h" });
     }
     // Recruiter Login
     static loginRecruiter(req, res) {

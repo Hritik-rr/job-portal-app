@@ -43,7 +43,7 @@ class RecruiterController {
             const { dept, jobDesc, salaryRange } = req.body;
             try {
                 const result = yield configDB_1.pool.query(`INSERT INTO jobListings (recId, dept, jobDesc, salaryRange) VALUES ($1, $2, $3, $4) RETURNING *`, [recId, dept, jobDesc, salaryRange]);
-                console.log(result);
+                // console.log(result);
                 return res.status(201).json({ message: "New Job posted.", job: result.rows[0] });
             }
             catch (error) {

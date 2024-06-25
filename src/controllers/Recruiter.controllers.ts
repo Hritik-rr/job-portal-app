@@ -6,7 +6,7 @@ dotenv.config();
 
 export class RecruiterController {
     public static async jobPost(req: Request, res: Response) {
-        const {recId} = req.params;
+        const {recId} = req.params as {recId: string}
         const {dept, jobDesc, salaryRange} = req.body;
 
         try {
@@ -14,7 +14,7 @@ export class RecruiterController {
                 `INSERT INTO jobListings (recId, dept, jobDesc, salaryRange) VALUES ($1, $2, $3, $4) RETURNING *`,
                 [recId, dept, jobDesc, salaryRange]
             );
-            console.log(result);
+            // console.log(result);
 
             return res.status(201).json({message: "New Job posted.", job:result.rows[0]})
         } catch(error) {

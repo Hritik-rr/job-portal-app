@@ -9,7 +9,7 @@ dotenv.config();
 
 export class AuthController {
   private static generateToken(user: { id: string; role: string }) {
-    return jwt.sign(user, process.env.JWT_SECRET!, { expiresIn: "12h" });
+    return jwt.sign(user, SECRET_KEY, { expiresIn: "12h" });
   }
 
   // Recruiter Login
