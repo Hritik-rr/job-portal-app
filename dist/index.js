@@ -38,17 +38,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const configDB_1 = require("../src/db/configDB");
 const dotenv = __importStar(require("dotenv"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const route_1 = __importDefault(require("./routes/route"));
+route_1.default;
 dotenv.config();
 const app = (0, express_1.default)();
+app.use(body_parser_1.default.json());
 const port = 3000;
 app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield configDB_1.pool.query('SELECT NOW()');
     res.send(result.rows[0]);
     // res.send('Hello, TypeScript Node Express!');
 }));
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
 app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
     const checkDB = yield configDB_1.pool.query('select * from candidate');
     if (checkDB.rows[0] === null) {
@@ -60,6 +61,7 @@ app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
     }
     console.log(`Server running on port ${port}`);
 }));
+app.use('/', route_1.default);
 // db.runMigrations().then(() => {
 //   app.listen(port, () => {
 //     console.log(`Server is running on port ${port}`);
