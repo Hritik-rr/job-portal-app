@@ -85,7 +85,7 @@ For package manager, npm is used in the project, so it is required that you must
 
  7. Populating the Database using dump files.
     * Now that our project set up is complete and we have established a connection with Postgres, now we will use some sample data scripts to populate the database using dumpfiles.
-    > Note: Go through the [g-drive link](https🫒) to get the dump files.
+    > Note: Go through the [g-drive link](https://drive.google.com/drive/folders/1hFqoYb4QuEDJwXoP3qe-hyyvyItEn-jr?usp=sharing) to get the dump files.
     <br />    
 <br />
 
@@ -127,8 +127,7 @@ Before starting up with the routes, just make sure to run the commands below.
 
 <!-- TABLE OF CONTENTS -->
 ## 📄 Additional Information
-1. For any information about endpoints, CI/CD or design decision I made, you can go through this [**Video Explanation**](https://www.loom.com/share/1034cc77e0db447a9078ca3a26ea6c45?sid=4889bb49-70cd-4711-bac1-03b8459fcb3c) where I have given a brief about the code base.
-2. The high number of commits in this repository is primarily due to extensive testing of GitHub Actions for deploying the code on an EC2 instance using Nginx. As this was my first experience with Nginx, I wanted to ensure a robust deployment process.
+1. For any information about endpoints, CI/CD or design decision I made, you can go through this [**Video Explanation**](https://www.loom.com/share/d7458610a5b74c46846c58202c07e4fa?sid=ebf12543-029f-4637-befc-1a9e595e8096) where I have given a brief about the code base.
 
 
 
