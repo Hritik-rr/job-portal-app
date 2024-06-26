@@ -124,6 +124,8 @@ Before starting up with the routes, just make sure to run the commands below.
 | *Apply to jobs* <br /> `/candidate/apply/:jobId` | ***POST REQUEST***: Candidates can apply to multiple number of jobs. *Note: Each candidate can only apply to a job once.* |
 <br />
 
+> *Note: Be careful while updating json input,user data and params, all of these are allocated with Zod validation.*
+
 
 <!-- TABLE OF CONTENTS -->
 ## 📄 Additional Information
