@@ -2,12 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt, { Secret, JwtPayload } from "jsonwebtoken";
 import * as dotenv from "dotenv";
 dotenv.config();
-export const SECRET_KEY: Secret = process.env.SECRET_KEY || "secret10";
-
-// export interface DecodedToken extends Request{
-//   id: string;
-//   role: string;
-// }
+export const SECRET_KEY: Secret = process.env.JWT_SECRET || "secret10";
 
 export interface CustomRequest extends Request {
   currentUser?: {

@@ -2,13 +2,14 @@ import { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import {pool} from '../db/configDB';
 import { CustomRequest } from '../middlewares/authentication.middleware';
+import { jobPostSchema, jobApplicationSchema } from '../validations/Recruiter.validation';
 
 dotenv.config();
 
 export class RecruiterController {
     public static async jobPost(req: Request, res: Response) {
         const {recId} = req.params as {recId: string}
-        const {dept, jobDesc, salaryRange} = req.body;
+        const {dept, jobDesc, salaryRange} = jobPostSchema.parse(req.body);
 
         try {
             const result = await pool.query(
@@ -25,7 +26,7 @@ export class RecruiterController {
     }
 
     public static async jobApplicationLogs(req: Request, res: Response) {
-        const { jobId } = req.params;
+        const { jobId } = jobApplicationSchema.parse(req.params);
         const { currentUser } = req as CustomRequest;
         const recruiterId = currentUser?.id;
     

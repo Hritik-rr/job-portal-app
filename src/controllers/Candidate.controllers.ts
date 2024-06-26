@@ -1,10 +1,11 @@
 import { Request, Response } from 'express';
 import { pool } from '../db/configDB';
 import { CustomRequest } from '../middlewares/authentication.middleware';
+import { applyToJobschema, getAvailableJobsSchema } from '../validations/Candidate.validation';
 
 export class CandidateController {
     public static async getAvailableJobs(req: Request, res: Response) {
-        const { dept, jobDesc } = req.query; 
+        const { dept, jobDesc } = getAvailableJobsSchema.parse(req.query); 
         try {
             const conditions: string[] = [];
             const params: any[] = [];
@@ -32,7 +33,8 @@ export class CandidateController {
     }
 
     public static async applyToJobs(req: Request, res: Response) {
-        const {jobId} = req.params;
+
+        const {jobId} = applyToJobschema.parse(req.params);
         const { currentUser } = req as CustomRequest; // Assuming CustomRequest includes currentUser
         const candidateId = currentUser?.id; 
 

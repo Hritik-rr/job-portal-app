@@ -11,12 +11,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authorization = void 0;
 const configDB_1 = require("../db/configDB");
-// interface CustomRequest extends Request {
-//   currentUser?: {
-//     id: string;
-//     role: string;
-//   };
-// }
 const authorization = (roles) => {
     return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
         const { currentUser } = req;

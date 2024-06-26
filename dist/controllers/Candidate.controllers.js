@@ -11,10 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CandidateController = void 0;
 const configDB_1 = require("../db/configDB");
+const Candidate_validation_1 = require("../validations/Candidate.validation");
 class CandidateController {
     static getAvailableJobs(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { dept, jobDesc } = req.query;
+            const { dept, jobDesc } = Candidate_validation_1.getAvailableJobsSchema.parse(req.query);
             try {
                 const conditions = [];
                 const params = [];
@@ -41,7 +42,7 @@ class CandidateController {
     static applyToJobs(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             var _a, _b, _c;
-            const { jobId } = req.params;
+            const { jobId } = Candidate_validation_1.applyToJobschema.parse(req.params);
             const { currentUser } = req; // Assuming CustomRequest includes currentUser
             const candidateId = currentUser === null || currentUser === void 0 ? void 0 : currentUser.id;
             // console.log("candidateId " + candidateId);
