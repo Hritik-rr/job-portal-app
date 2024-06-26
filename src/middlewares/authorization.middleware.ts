@@ -2,12 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { pool } from '../db/configDB';
 import { CustomRequest } from "./authentication.middleware";
 
-// interface CustomRequest extends Request {
-//   currentUser?: {
-//     id: string;
-//     role: string;
-//   };
-// }
 
 export const authorization = (roles: string[]) => {
   return async (req: Request, res: Response, next: NextFunction) => {

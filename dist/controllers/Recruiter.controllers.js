@@ -35,12 +35,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.RecruiterController = void 0;
 const dotenv = __importStar(require("dotenv"));
 const configDB_1 = require("../db/configDB");
+const Recruiter_validation_1 = require("../validations/Recruiter.validation");
 dotenv.config();
 class RecruiterController {
     static jobPost(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const { recId } = req.params;
-            const { dept, jobDesc, salaryRange } = req.body;
+            const { dept, jobDesc, salaryRange } = Recruiter_validation_1.jobPostSchema.parse(req.body);
             try {
                 const result = yield configDB_1.pool.query(`INSERT INTO jobListings (recId, dept, jobDesc, salaryRange) VALUES ($1, $2, $3, $4) RETURNING *`, [recId, dept, jobDesc, salaryRange]);
                 // console.log(result);
@@ -54,7 +55,7 @@ class RecruiterController {
     }
     static jobApplicationLogs(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { jobId } = req.params;
+            const { jobId } = Recruiter_validation_1.jobApplicationSchema.parse(req.params);
             const { currentUser } = req;
             const recruiterId = currentUser === null || currentUser === void 0 ? void 0 : currentUser.id;
             // console.log("Received jobId:", jobId);

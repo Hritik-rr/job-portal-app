@@ -30,7 +30,7 @@ exports.authentication = exports.SECRET_KEY = void 0;
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-exports.SECRET_KEY = process.env.SECRET_KEY || "secret10";
+exports.SECRET_KEY = process.env.JWT_SECRET || "secret10";
 const authentication = (req, res, next) => {
     var _a;
     const header = req.headers.authorization;

@@ -38,6 +38,7 @@ const bcrypt = __importStar(require("bcrypt"));
 const jwt = __importStar(require("jsonwebtoken"));
 const dotenv = __importStar(require("dotenv"));
 const authentication_middleware_1 = require("../middlewares/authentication.middleware");
+const Auth_validation_1 = require("../validations/Auth.validation");
 dotenv.config();
 class AuthController {
     static generateToken(user) {
@@ -46,7 +47,7 @@ class AuthController {
     // Recruiter Login
     static loginRecruiter(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { email, password } = req.body;
+            const { email, password } = Auth_validation_1.candidateLoginSchema.parse(req.body);
             try {
                 const result = yield configDB_1.pool.query('SELECT * FROM recruiter WHERE email = $1', [email]);
                 if (result.rows.length === 0) {

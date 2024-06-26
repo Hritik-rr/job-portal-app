@@ -4,6 +4,7 @@ import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 import {SECRET_KEY} from '../middlewares/authentication.middleware';
+import { candidateLoginSchema, candidateRegisterSchema, recruiterRegisterSchema } from "../validations/Auth.validation";
 
 dotenv.config();
 
@@ -14,7 +15,7 @@ export class AuthController {
 
   // Recruiter Login
   public static async loginRecruiter(req: Request, res: Response) {
-    const { email, password } = req.body;
+    const { email, password } = candidateLoginSchema.parse(req.body);
 
     try {
       const result = await pool.query('SELECT * FROM recruiter WHERE email = $1', [email]);
@@ -47,7 +48,7 @@ export class AuthController {
 
   // Candidate Login
   public static async loginCandidate(req: Request, res: Response) {
-    const { email, password } = req.body;
+    const { email, password } = candidateLoginSchema.parse(req.body);
 
     try {
       const result = await pool.query('SELECT * FROM candidate WHERE email = $1', [email]);
@@ -79,8 +80,8 @@ export class AuthController {
 
   // Recruiter Registration
   public static async registerRecruiter(req: Request, res: Response) {
-    const { recName, email, pwd, recDept, recStatus } = req.body;
-    // console.log(recStatus)
+    const { recName, recDept, recStatus } = req.body;
+    const {email, pwd} = recruiterRegisterSchema.parse(req.body)
 
     try {
       const hashedPassword = await bcrypt.hash(pwd, 10);
@@ -106,7 +107,8 @@ export class AuthController {
 
   // Candidate Registration
   public static async registerCandidate(req: Request, res: Response) {
-    const { userName, userDept, age, email, pwd, userStatus } = req.body;
+    const { userName, userDept, age, userStatus } = req.body;
+    const {email, pwd} = candidateRegisterSchema.parse(req.body);
 
     try {
       const hashedPassword = await bcrypt.hash(pwd, 10);
