@@ -5,11 +5,6 @@ import * as dotenv from 'dotenv';
 
 dotenv.config();
 const poolConfig = {
-    // database: 'postgres',
-    // user: 'root',
-    // password: 'secret',
-    // host: 'localhost',
-    // port: 5432,
     database: process.env.DATABASE,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
@@ -38,43 +33,3 @@ export const db = {
     } 
 }
 
-
-// async function queryDatabase() {
-//   try {
-//     const res = await pool.query('SELECT * from candidate;');
-//     console.log(res.rows[0]);
-//     console.log("Hello")
-//   } catch (err) {
-//     console.error(err);
-//   }
-// }
-
-// // Call the query function
-// queryDatabase();
-
-
-
-// const { Pool } = require('pg');
-
-// // Configuration for the PostgreSQL client
-// export const pool = new Pool({
-    // database: 'postgres',
-    // user: 'root',
-    // password: 'secret',
-    // host: 'localhost',
-    // port: 5432,
-// });
-
-// // Example of a function to query the database
-// async function queryDatabase() {
-//   try {
-//     const res = await pool.query('SELECT * from candidate;');
-//     console.log(res.rows[0]);
-//     console.log("Hello")
-//   } catch (err) {
-//     console.error(err);
-//   }
-// }
-
-// // Call the query function
-// queryDatabase();

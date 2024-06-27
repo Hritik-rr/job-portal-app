@@ -4,7 +4,6 @@ import * as dotenv from 'dotenv';
 import bodyParser from "body-parser";
 import router from './routes/route'
 
-router
 dotenv.config();
 
 const app: Application = express();
